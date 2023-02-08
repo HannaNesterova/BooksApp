@@ -1,4 +1,5 @@
 {
+    // TASK #1
     'use strict';
     const selected = dataSource.books;
 
@@ -12,11 +13,13 @@
     },
      image:{
       imageWrapper: '.books-list .book__image',
+      bookImage :'.book__image',
      },
     };
     const templates = {
       books: Handlebars.compile(document.querySelector(select.templateOf.book).innerHTML),   
     }; 
+
   
   
     function renderInList() {
@@ -39,36 +42,31 @@
 
 
 
-    //add empty arr 
+    //TASK #2
     const favoriteBooks = [];
+    console.log(favoriteBooks)
 
     //create a function initActions.
     function initActions(){
 
-    //find Ref for. book__image у .booksList   
+    const bookImage = document.querySelector(select.image.bookImage);
     const booksRef = document.querySelectorAll(select.image.imageWrapper);
-    console.log('ref', booksRef);
+    console.log('bookRef', booksRef);
   
-    //FOR for every books element
     for(ref of booksRef){
-        //add db listener
-        ref.addEventListener('dbсlick', function (e){
-            e.preventDefoult();
-        })
+        console.log('ref', ref);
+        ref.addEventListener('dbClick', function (e){
+            e.preventDefault();
+        });
     }
-    //if true use preventDefoult
-    if(ref){
-    // add class favorite for shoosen element
+    if (ref){
     ref.classList.add('favorite');
     }
-    //dowload ID from data-id
-    const booksId = booksRef.getAttribute('getAttribute');
-    console.log(booksId)
-
-    // add push ID to the favoriteBooks
+    const booksId =  bookImage.getAttribute('data-id');
     favoriteBooks.push(booksId);
+    console.log(booksId)
+       
     }
   }
   initActions();
   
-    
