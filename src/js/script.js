@@ -54,21 +54,12 @@
     console.log('bookRef', booksRef);
   
     for(const ref of booksRef){
-        ref.addEventListener('click', function (e){
+        ref.addEventListener('dblclick', function (e){
             e.preventDefault();
             if(ref){
                 ref.classList.add('favorite');
             }
         });
-
-        // for(ref of booksRef){
-        //     ref.addEventListener('click', function (e){
-        //         e.preventDefault();
-        //         if(ref){
-        //             ref.classList.add('favorite');
-        //         }
-        //     });
-        // }
     }
     const booksId =  bookImage.getAttribute('data-id');
     favoriteBooks.push(booksId);
