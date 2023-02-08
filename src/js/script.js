@@ -53,14 +53,22 @@
     const booksRef = document.querySelectorAll(select.image.imageWrapper);
     console.log('bookRef', booksRef);
   
-    for(ref of booksRef){
-        console.log('ref', ref);
-        ref.addEventListener('dbClick', function (e){
+    for(const ref of booksRef){
+        ref.addEventListener('click', function (e){
             e.preventDefault();
+            if(ref){
+                ref.classList.add('favorite');
+            }
         });
-    }
-    if (ref){
-    ref.classList.add('favorite');
+
+        // for(ref of booksRef){
+        //     ref.addEventListener('click', function (e){
+        //         e.preventDefault();
+        //         if(ref){
+        //             ref.classList.add('favorite');
+        //         }
+        //     });
+        // }
     }
     const booksId =  bookImage.getAttribute('data-id');
     favoriteBooks.push(booksId);
