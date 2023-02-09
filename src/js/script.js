@@ -80,19 +80,21 @@
   // TASK #3
 
    const filters = [];
+   console.log(filters);
+
    const filterForm = document.querySelectorAll('.inputTest');
    console.log('form',filterForm);
 
 
    filterForm.addEventListener('click', resultFiltr);
 
-   function resultFiltr(e){
-    e.preventDefault();
+   function resultFiltr(){
 
-    if(filterForm.checked === true && filterForm.selected.value === adults){
-      filters.push(filterForm);
-    } else if ( filterForm.checked === true && filterForm.selected.value === nonFiction){
-      filters.push(filterForm);
+
+    if(filterForm.checked === true && filterForm.checked === filterForm.details.adults){
+      filters.push(details.adults);
+    } else if ( filterForm.checked === true && filterForm.checked === filterForm.details.nonFiction){
+      filters.push(details.nonFiction);
     }
 
      }
