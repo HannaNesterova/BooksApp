@@ -79,20 +79,22 @@
 
   // TASK #3
 
-  // const filters = [];
-  // const filterForm = document.querySelector(select.filter.filterForm);
-  // console.log('form',filterForm)
+   const filters = [];
+   const filterForm = document.querySelectorAll('.inputTest');
+   console.log('form',filterForm);
 
-  //  const test = document.querySelectorAll('.filters .inputTest');
-  //  console.log(test);
 
-  // function checkForm (test){
+   filterForm.addEventListener('click', resultFiltr);
 
-  //     test.addEventListener('click', function(e){
-  //     e.preventDefault();
-  //         console.log('test')
-  //   });
-  // }
- 
+   function resultFiltr(e){
+    e.preventDefault();
+
+    if(filterForm.checked === true && filterForm.selected.value === adults){
+      filters.push(filterForm);
+    } else if ( filterForm.checked === true && filterForm.selected.value === nonFiction){
+      filters.push(filterForm);
+    }
+
+     }
 }
 
