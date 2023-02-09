@@ -54,16 +54,17 @@
         ref.addEventListener('dblclick', function (e){
             e.preventDefault();
 
-            if(ref !== true){
-                ref.classList.add('favorite');
-                const booksId =  booksRef.getAttribute('data-id');
+            if(e.target && e.target.matches('.book__image')){
+                e.target.classList.add('favorite');
+                const booksId =  booksRef.getElementById('data-id').offsetParent;
                 favoriteBooks.push(booksId);
             }
-              if(ref  == true){
-                 const booksId =  booksRef.getAttribute('data-id');
-                 favoriteBooks.removeAttribute(booksId);
-                 ref.classList.remove('favorite');
-             }
+               if(e.target  && e.target.offsetParent.matches('active')){
+                  const booksId =  booksRef.getElementById('data-id').offsetParent;
+                  favoriteBooks.removeAttribute(booksId);
+                  ref.classList.remove('favorite');
+              }
+           
         });
     }
 
