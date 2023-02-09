@@ -44,26 +44,30 @@
 
     //TASK #2
     const favoriteBooks = [];
-    console.log(favoriteBooks)
 
-    //create a function initActions.
+
     function initActions(){
-
-    const bookImage = document.querySelector(select.image.bookImage);
     const booksRef = document.querySelectorAll(select.image.imageWrapper);
     console.log('bookRef', booksRef);
   
     for(const ref of booksRef){
         ref.addEventListener('dblclick', function (e){
             e.preventDefault();
-            if(ref){
+
+            if(ref !== true){
                 ref.classList.add('favorite');
+                const booksId =  booksRef.getAttribute('data-id');
+                favoriteBooks.push(booksId);
             }
+              if(ref  == true){
+                 const booksId =  booksRef.getAttribute('data-id');
+                 favoriteBooks.removeAttribute(booksId);
+                 ref.classList.remove('favorite');
+             }
         });
     }
-    const booksId =  bookImage.getAttribute('data-id');
-    favoriteBooks.push(booksId);
-    console.log(booksId)
+
+
        
     }
   }
