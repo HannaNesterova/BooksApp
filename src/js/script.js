@@ -52,6 +52,7 @@
     function initActions(){
     const booksRef = document.querySelectorAll(select.image.imageWrapper);
     console.log('bookRef', booksRef);
+    
   
     for(const ref of booksRef){
         ref.addEventListener('dblclick', function (e){
@@ -62,25 +63,57 @@
                 const booksId =  booksRef.getElementById('data-id').offsetParent;
                 favoriteBooks.push(booksId);
             }
-               if(e.target  && e.target.offsetParent.matches('active')){
+               /*if(e.target  && e.target.offsetParent.matches('active')){
                   const booksId =  booksRef.getElementById('data-id').offsetParent;
                   favoriteBooks.removeAttribute(booksId);
                   ref.classList.remove('favorite');
-              }
+              }*/
            
         });
-    }
-    }
-    initActions();
+        }
 
 
     // TASK #3
+    const filter = document.querySelector('.filters');
+    let filters = [];
 
-    const filters = [];
+    console.log('filtres',filters)
+    console.log('filter', filter)
     
-    const filterForm = document.querySelector(select.filter.filterForm);
-    console.log(filterForm)
-   
-  }
 
+
+    filter.addEventListener('click',function(e){
+        e.preventDefault();
+
+
+    document.querySelectorAll('[type="checkbox"]').forEach(item => {
+
+    if(item === true){
+        filters.push(item.value);
+    }
+    if(!item.input) {
+        filters.reduce(item.value);
+            }
+        });
+    });
+    }
+    initActions();
+
+}
+ 
+
+//     // let adults = document.querySelector('.filters input[value = "adults"]');
+//     // let nonFiction = document.querySelector('.filters input[value = "nonFiction"]');
+
+//         filter.addEventListener('click', function(e){
+//             e.preventDefault();
+//        if(adults.value == "adults"){
+//             console.log(true)
+//        }
+//         });
+
+// }
+// checkForm();
+   
+  
   
