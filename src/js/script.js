@@ -15,6 +15,9 @@
       imageWrapper: '.books-list .book__image',
       bookImage :'.book__image',
      },
+     filter:{
+        filterForm: '.filters',
+     }
     };
     const templates = {
       books: Handlebars.compile(document.querySelector(select.templateOf.book).innerHTML),   
@@ -67,10 +70,17 @@
            
         });
     }
-
-
-       
     }
+    initActions();
+
+
+    // TASK #3
+
+    const filters = [];
+    
+    const filterForm = document.querySelector(select.filter.filterForm);
+    console.log(filterForm)
+   
   }
-  initActions();
+
   
