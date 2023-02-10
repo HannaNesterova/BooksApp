@@ -28,7 +28,7 @@
 
 
   function renderInList() {
-    for ( const book of selected){
+    for (const book of dataSource.books){
             
       /* generate HTML based on template (генерувати HTML на основі шаблона)*/ 
       const generatedHTML = templates.books(book);
@@ -69,80 +69,91 @@
 
         if(e.target && e.target.offsetParent.classList.contains('.book__image')){
           e.target.offsetParent.classList.add('favorite');
-          const booksId =  document.getElementsByName(dataSource.books.id);
+          const booksId =  ref.dataset.id;
           favoriteBooks.push(booksId);
         }
         if(e.target  && e.target.offsetParent.classList.contains('active')){
-          const booksId = document.getElementsByName(dataSource.books.id);
+          const booksId = ref.dataset.id;
           favoriteBooks.removeAttribute(booksId);
           e.target.offsetParent.classList.remove('favorite');
         } 
          
       });
     }
+
   }
+
   initActions();
+// TASK #3
+const filters = [];
+console.log(filters);
+
+//ADULTS FUNCTION
+const adult = document.querySelector('.inputTestAdult');
 
 
-  // TASK #3
-  const filters = [];
-  console.log(filters);
+adult.addEventListener('click', resultAdult);
 
-  //ADULTS FUNCTION
-  const adult = document.querySelector('.inputTestAdult');
-  console.log(adult);
-
-  adult.addEventListener('click', resultAdult);
-
-  function resultAdult(){
-    if(adult.checked === true ){
-      filters.push(true);
-    }
-
-    if(adult.checked != true){
-      filters.push(false);
-    }
+function resultAdult(){
+  if(adult.checked === true ){
+    filters.push(true);
+    filterBooks();
   }
 
-  //NON-FICTION FUNCTION 
+  if(adult.checked != true){
+    filters.push(false);
+    filterBooks();
+  }
+}
 
-  const nonFiction = document.querySelector('.inputTestNon');
-  console.log(nonFiction);
 
-  nonFiction.addEventListener('click', resultNonFiction);
+//NON-FICTION FUNCTION 
 
-  function resultNonFiction(){
-    if(nonFiction.checked === true){
-      filters.push(true);
-    }
-    if(nonFiction.checked != true){
-      filters.push(false);
-    }
+const nonFiction = document.querySelector('.inputTestNon');
+
+
+nonFiction.addEventListener('click', resultNonFiction);
+
+function resultNonFiction(){
+  
+  if(nonFiction.checked === true){
+    filters.push(true);
+    filterBooks();
+  }
+  if(nonFiction.checked != true){
+    filters.push(false);
+    filterBooks();
   }
 
 
+// TASK #4
+  
   function  filterBooks(){
 
     for (let book of selected){
     console.log('book',book);
 
     let shouldBeHidden = false;
+    console.log(shouldBeHidden)
   
     for (let filter of filters){
       console.log(filter);
-
-        if(!condition) {
+        if(!book.details[filter]) {
           shouldBeHidden = true;
           break;
         }
-        if(!book.details[filter]) {
-        
         }
-        }
-    
+      if(shouldBeHidden === true){
+        select.image.bookImage[favoriteBooks];
       }
+    if(shouldBeHidden != true){
+
     }
-  filterBooks();
+    }
+    }
+
+  }
+
 
 }
 
