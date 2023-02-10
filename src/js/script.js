@@ -17,6 +17,8 @@
     },
     filter:{
       filterForm: '.filters',
+      valueAdult: '.inputTestAdult',
+      valueNon: '.inputTestNon',
     }
   };
   const templates = {
@@ -52,7 +54,6 @@
   function initActions(){
 
   const booksRef = document.querySelectorAll(select.image.imageWrapper);
-  console.log('bookRef', booksRef);
 
     for(const ref of booksRef){
 
@@ -60,11 +61,11 @@
         e.preventDefault();
         ref.classList.toggle('favorite')
 
-         if(!favoriteBooks.ref){
-           favoriteBooks.push(ref);
-         } if(favoriteBooks.ref){
-           favoriteBooks.remove(ref);
-         }
+          if(!favoriteBooks.ref){
+            favoriteBooks.push(ref);
+          } if(favoriteBooks.ref){
+            favoriteBooks.remove(ref);
+          }
 
         if(e.target && e.target.offsetParent.classList.contains('.book__image')){
           e.target.offsetParent.classList.add('favorite');
@@ -84,25 +85,49 @@
 
 
   // TASK #3
-
    const filters = [];
-   console.log(filters);
+  console.log(filters);
 
-   const filterForm = document.querySelectorAll('.inputTest');
-   console.log('form',filterForm);
+  //ADULTS FUNCTION
+  const adult = document.querySelector('.inputTestAdult');
+  console.log(adult);
 
+  adult.addEventListener('click', resultAdult)
 
-   filterForm.addEventListener('click', resultFiltr);
-
-   function resultFiltr(){
-
-
-    if(filterForm.checked === true && filterForm.checked === filterForm.details.adults){
-      filters.push(details.adults);
-    } else if ( filterForm.checked === true && filterForm.checked === filterForm.details.nonFiction){
-      filters.push(details.nonFiction);
+  function resultAdult(){
+    if(adult.checked === true){
+      console.log('adults');
     }
+  }
+
+  //NON-FICTION FUNCTION 
+
+  const nonFiction = document.querySelector('.inputTestNon');
+  console.log(nonFiction);
+
+  nonFiction.addEventListener('click', resultNonFiction);
+
+  function resultNonFiction(){
+    if(nonFiction.checked === true){
+      console.log('nonFiction');
+    }
+  }
+  //  const filterForm = document.querySelectorAll('.inputTest');
+
+  //  console.log('form',filterForm);
+
+
+  //  filterForm.addEventListener('click', resultFiltr);
+
+  //  function resultFiltr(){
+
+
+    // if(filterForm.checked === true && filterForm.checked === filterForm.details.adults){
+    //   filters.push(details.adults);
+    // } else if ( filterForm.checked === true && filterForm.checked === filterForm.details.nonFiction){
+    //   filters.push(details.nonFiction);
+    // }
 
      }
-}
+
 
