@@ -1,7 +1,7 @@
 {
   // TASK #1
   'use strict';
-  //const selected = dataSource.books;
+  const selected = dataSource.books;
 
   const select = {
     templateOf: {
@@ -80,6 +80,9 @@
          
       });
     }
+    
+    // TASK #3
+
     const filters = [];
     const filter = document.querySelector('.filters');
 
@@ -98,51 +101,9 @@
 
   initActions();
 
-  // TASK #3
-  /*const filters = [];
-console.log(filters);
-
-//ADULTS FUNCTION
-const adult = document.querySelector('.inputTestAdult');
-
-
-adult.addEventListener('click', resultAdult);
-
-function resultAdult(){
-  if(adult.checked === true ){
-    filters.push(true);
-    console.log(filters.push());
-  }
-
-  if(adult.checked != true){
-    filters.push(false);
-    console.log(filters.push());
-  }
-}
-
-
-//NON-FICTION FUNCTION 
-
-const nonFiction = document.querySelector('.inputTestNon');
-
-
-nonFiction.addEventListener('click', resultNonFiction);
-
-function resultNonFiction(){
-  
-  if(nonFiction.checked === true){
-    filters.push(true);
-    filterBooks();
-  }
-  if(nonFiction.checked != true){
-    filters.push(false);
-    filterBooks();
-  }*/
-
-
   // TASK #4
   
-  /*function  filterBooks(){
+  function  filterBooks(){
 
     for (let book of selected){
       console.log('book',book);
@@ -164,7 +125,7 @@ function resultNonFiction(){
 
     }
     }
-    }*/
+    }
 
 }
 
