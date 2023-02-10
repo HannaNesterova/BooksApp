@@ -123,26 +123,26 @@
 
   function  filterBooks(){
 
-    for (let book of dataSource.books){
+    for (let book of selected){
     console.log('book',book);
+
     let shouldBeHidden = false;
   
-  
     for (let filter of filters){
-      for(const filter of filters) {
+      console.log(filter);
+
         if(!condition) {
           shouldBeHidden = true;
           break;
         }
-      }
-      if(!book.details[filter]) {
+        if(!book.details[filter]) {
         
+        }
+        }
+    
       }
     }
-    }
-    console.log(filterBooks);
-
-  }
+  filterBooks();
 
 }
 
