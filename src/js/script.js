@@ -95,8 +95,12 @@
   adult.addEventListener('click', resultAdult)
 
   function resultAdult(){
-    if(adult.checked === true){
-      console.log('adults');
+    if(adult.checked === true ){
+     filters.push(true)
+    }
+
+    if(adult.checked != true){
+      filters.push(false);
     }
   }
 
@@ -109,7 +113,10 @@
 
   function resultNonFiction(){
     if(nonFiction.checked === true){
-      console.log('nonFiction');
+      filters.push(true)
+    }
+    if(nonFiction.checked != true){
+      filters.push(false)
     }
   }
   //  const filterForm = document.querySelectorAll('.inputTest');
