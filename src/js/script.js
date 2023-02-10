@@ -1,7 +1,7 @@
 {
   // TASK #1
   'use strict';
-  const selected = dataSource.books;
+  //const selected = dataSource.books;
 
   const select = {
     templateOf: {
@@ -80,12 +80,26 @@
          
       });
     }
+    const filters = [];
+    const filter = document.querySelector('.filters');
 
+    filter.addEventListener('click', function(event){
+
+          if(event.target.checked){ 
+            filters.push(event.target.value);
+            console.log(event.target.value);
+          }
+          else {
+            filters.splice(event.target.value);
+            console.log(event.target.value);
+          }
+        });
   }
 
   initActions();
-// TASK #3
-const filters = [];
+
+  // TASK #3
+  /*const filters = [];
 console.log(filters);
 
 //ADULTS FUNCTION
@@ -97,12 +111,12 @@ adult.addEventListener('click', resultAdult);
 function resultAdult(){
   if(adult.checked === true ){
     filters.push(true);
-    filterBooks();
+    console.log(filters.push());
   }
 
   if(adult.checked != true){
     filters.push(false);
-    filterBooks();
+    console.log(filters.push());
   }
 }
 
@@ -123,37 +137,34 @@ function resultNonFiction(){
   if(nonFiction.checked != true){
     filters.push(false);
     filterBooks();
-  }
+  }*/
 
 
-// TASK #4
+  // TASK #4
   
-  function  filterBooks(){
+  /*function  filterBooks(){
 
     for (let book of selected){
-    console.log('book',book);
+      console.log('book',book);
 
-    let shouldBeHidden = false;
-    console.log(shouldBeHidden)
+      let shouldBeHidden = false;
+      console.log(shouldBeHidden);
   
-    for (let filter of filters){
-      console.log(filter);
+      for (let filter of filters){
+        console.log(filter);
         if(!book.details[filter]) {
           shouldBeHidden = true;
           break;
         }
-        }
+      }
       if(shouldBeHidden === true){
         select.image.bookImage[favoriteBooks];
       }
-    if(shouldBeHidden != true){
+      if(shouldBeHidden != true){
 
     }
     }
-    }
-
-  }
-
+    }*/
 
 }
 
