@@ -49,18 +49,19 @@
   const favoriteBooks = [];
   console.log(favoriteBooks)
 
-
-
   function initActions(){
 
   const booksRef = document.querySelectorAll(select.image.imageWrapper);
   console.log('bookRef', booksRef);
 
     for(const ref of booksRef){
+
       ref.addEventListener('dblclick', function (e){
         e.preventDefault();
+        favoriteBooks.push(ref);
+        ref.classList.toggle('favorite')
 
-        if(e.target && e.target.matches('.book__image')){
+       /* if(e.target && e.target.matches('.book__image')){
           e.target.classList.add('favorite');
           const booksId =  document.getElementsByName(dataSource.books.id);
           favoriteBooks.push(booksId);
@@ -69,7 +70,7 @@
           const booksId = document.getElementsByName(dataSource.books.id);
           favoriteBooks.removeAttribute(booksId);
           ref.classList.remove('favorite');
-        }
+        } */
          
       });
     }
