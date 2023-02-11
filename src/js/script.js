@@ -1,147 +1,137 @@
 {
-  // TASK #1
   'use strict';
-  const selected = dataSource.books;
-
   const select = {
     templateOf: {
-      book: '#template-book',
+      books: '#template-book',
     },
     containerOf: {
-      container: '.books-list',
-
+      booksList: '.books-list',
+      filters: '.filters',
     },
-    image:{
-      imageWrapper: '.books-list .book__image',
-      bookImage :'.book__image',
+    book: {
+      image: '.book__image',
     },
-    filter:{
-      filterForm: '.filters',
-      valueAdult: '.inputTestAdult',
-      valueNon: '.inputTestNon',
+    classNames: {
+      bookFavourite: 'favorite',
+      bookInvisible: 'hidden',
     }
   };
   const templates = {
-    books: Handlebars.compile(document.querySelector(select.templateOf.book).innerHTML),   
-  }; 
+    books: Handlebars.compile(document.querySelector(select.templateOf.books).innerHTML), // що таке  templates 
+  };
 
-
-
-  function renderInList() {
-    for (const book of dataSource.books){
-            
-      /* generate HTML based on template (генерувати HTML на основі шаблона)*/ 
-      const generatedHTML = templates.books(book);
-
-      /* create element using utils.createElementFromHTML(створити  елемент за допомогою utils.createElementFromHTML)*/
-      const generatedDOMElement = utils.createDOMFromHTML(generatedHTML);
-
-      /* find menu container (знайти контейнер )*/
-      const bookContainer = document.querySelector(select.containerOf.container);
-
-      /* add element to menu (додати елемент до меню)*/
-      bookContainer.appendChild(generatedDOMElement);
+  class BooksList {
+    constructor(){
+      const thisBooksList = this;
+      thisBooksList.favoriteBooks = [];
+      thisBooksList.filters = [];
+      thisBooksList.getElements();
+      thisBooksList.initData();
+      thisBooksList.render();
+      thisBooksList.initActions();
+      thisBooksList.determinRatingBgc();
+      // чому ми тут не викликаємо   thisBooksList.filterBooks() ?
     }
-  }
-  renderInList();
+    initData() {
+      const thisBooksList = this;
+      thisBooksList.data = dataSource.books;
+    }
+    getElements(){
+      const thisBooksList = this;
+      thisBooksList.dom = {
+        booksContainer: document.querySelector(select.containerOf.booksList),
+        filtersForm: document.querySelector(select.containerOf.filters),
+      };
+    }
+    render(){
+      const thisBooksList = this;
+      for (const book of thisBooksList.data){
+        const ratingBgc = thisBooksList.determinRatingBgc(book.rating);
+        const ratingWidth = (book.rating)*10; // що означає множення на 10
 
-
-
-  //TASK #2
-  const favoriteBooks = [];
-  console.log(favoriteBooks);
-
-  function initActions(){
-
-    const booksRef = document.querySelectorAll(select.image.imageWrapper);
-
-    for(const ref of booksRef){
-
-      ref.addEventListener('dblclick', function (e){
-        e.preventDefault();
-        ref.classList.toggle('favorite');
-
-        if(!favoriteBooks.ref){
-          favoriteBooks.push(ref);
-        } if(favoriteBooks.ref){
-          favoriteBooks.remove(ref);
-        }
-
-        if(e.target && e.target.offsetParent.classList.contains('.book__image')){
-          e.target.offsetParent.classList.add('favorite');
-          const booksId =  ref.dataset.id;
-          favoriteBooks.push(booksId);
-        }
-        if(e.target  && e.target.offsetParent.classList.contains('active')){
-          const booksId = ref.dataset.id;
-          favoriteBooks.removeAttribute(booksId);
-          e.target.offsetParent.classList.remove('favorite');
-        } 
-         
-      });
+        book.ratingBgc = ratingBgc;
+        book.ratingWidth = ratingWidth;
+        /* generate HTML based on template */
+        const generatedHTML = templates.books(book);
+        /* create element using utils.createElementFromHTML */
+        const elementDOM = utils.createDOMFromHTML(generatedHTML);
+        /* add element to menu */
+        thisBooksList.dom.booksContainer.appendChild(elementDOM);
+      }
     }
     
-    // TASK #3
-
-    const filters = [];
-    const filter = document.querySelector('.filters');
-
-    filter.addEventListener('click', function(event){
-
-          if(event.target.checked){ 
-            filters.push(event.target.value);
-            console.log(event.target.value);
+    initActions(){
+      const thisBooksList = this;
+      
+      thisBooksList.dom.booksContainer.addEventListener('dblclick', function(event){
+        event.preventDefault;
+        const clickedBook = event.target;
+        if(clickedBook.offsetParent.classList.contains('book__image')){
+          const bookId = clickedBook.offsetParent.getAttribute('data-id');
+          if(thisBooksList.favoriteBooks.includes(bookId)){
+            clickedBook.offsetParent.classList.remove(select.classNames.bookFavourite);
+            thisBooksList.favoriteBooks.splice(thisBooksList.favoriteBooks.indexOf(bookId), 1); //що це означає ця 1
           }
           else {
-            filters.splice(event.target.value);
-            console.log(event.target.value);
+            clickedBook.offsetParent.classList.add(select.classNames.bookFavourite);
+            thisBooksList.favoriteBooks.push(bookId);
           }
-          filterBooks();
-        });
-
-  // TASK #4
+        }
+      });
   
-  function  filterBooks(){
-    const books = selected;
-
-    for (let book of books){
-      let shouldBeHidden = false;
-      const filterBook = document.querySelector('.book__image[data-id="' + book.id + '"]');;
+      thisBooksList.dom.filtersForm.addEventListener('click', function(event){ // що означає event.target; і коли ми його використовуємо
+        const clickedElem = event.target;
+        if(clickedElem.tagName == 'INPUT' && clickedElem.type == 'checkbox' && clickedElem.name == 'filter'){
+    
   
-      for (let filter of filters){
-        if(!book.details[filter]) {
-          shouldBeHidden = true;
-          break;
+          const booksValue = clickedElem.value;                                  
+          if(clickedElem.checked == true){
+            thisBooksList.filters.push(booksValue);
+          }
+          else{
+            thisBooksList.filters.splice(thisBooksList.filters.indexOf(booksValue), 1);
+          }
+        }
+        thisBooksList.filterBooks();
+      });
+    }
+    determinRatingBgc(rating){
+      let background = ''; //чому ми тут створюємо пусту строку
+      if(rating<6){
+        background = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+      }
+      else if(rating>6 && rating<=8){
+        background = 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+      }
+      else if(rating>8 && rating<=9){
+        background = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+      }
+      else if(rating>9){
+        background = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+      }
+      return background; // чому реторн
+    }
+    filterBooks(){ // цікаво ще покроково розглянути цю функцію 
+      const thisBooksList = this;
+      for(let book of thisBooksList.data){
+        let shouldBeHidden = false;
+        const filterBook = document.querySelector('.book__image[data-id="' + book.id + '"]');
+        for(let filter of thisBooksList.filters){
+          if(!book.details[filter]){
+            shouldBeHidden = true;
+            break;
+          }
+        }
+        if(shouldBeHidden){
+          filterBook.classList.add(select.classNames.bookInvisible);
+        }
+        else {
+          filterBook.classList.remove(select.classNames.bookInvisible);
         }
       }
-      if(shouldBeHidden){
-       filterBook.classList.add('hidden');
-      }
-      else{
-        filterBook.classList.remove('hidden');
-    }
-    }
-    }
-
-    //TASK #5
-    function determinRatingBgc(rating){
-
     }
   }
 
-  initActions();
-  const ratingWidth = rating;
-
-  if (ratingWidth < 6){
-    const colorRating = 'background: linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
-  } else if (ratingWidth > 6 && ratingWidth <= 8){
-    const colorRating = 'background: linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
-  } else if(ratingWidth > 8 && ratingWidth <= 9){
-    const colorRating = 'background: linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
-  } else if( ratingWidth > 9){
-    const colorRating = 'background: linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
-  }
-
+  new BooksList(); // для чого це?
+  
 }
-
-
