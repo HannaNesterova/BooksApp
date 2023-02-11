@@ -122,10 +122,25 @@
     }
     }
     }
+
+    //TASK #5
+    function determinRatingBgc(rating){
+
+    }
   }
 
   initActions();
+  const ratingWidth = rating;
 
+  if (ratingWidth < 6){
+    const colorRating = 'background: linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+  } else if (ratingWidth > 6 && ratingWidth <= 8){
+    const colorRating = 'background: linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+  } else if(ratingWidth > 8 && ratingWidth <= 9){
+    const colorRating = 'background: linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+  } else if( ratingWidth > 9){
+    const colorRating = 'background: linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+  }
 
 }
 
