@@ -66,6 +66,9 @@
       thisBooksList.dom.booksContainer.addEventListener('dblclick', function(event){
         event.preventDefault;
         const clickedBook = event.target;
+        thisBooksList.dom.booksContainer.classList.toggle(select.classNames.bookFavourite);
+
+
         if(clickedBook.offsetParent.classList.contains('book__image')){
           const bookId = clickedBook.offsetParent.getAttribute('data-id');
           if(thisBooksList.favoriteBooks.includes(bookId)){
